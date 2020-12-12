@@ -33,7 +33,10 @@
 {{ with .Site.Params.googleVerification }}<meta name="google-site-verification" content="{{.}}" />{{ end }}
 
 <!-- Site Generator -->
-<meta name="generator" content="Hugo {{ hugo.Version }} with even 4.0.0" />
+<meta name="generator" content="Hugo {{ .Site.Hugo.Version }} with theme even" />
+
+<!-- Permalink & RSSlink -->
+<link rel="canonical" href="{{ .Permalink }}" />
 
 <!-- Favicon and Touch icons -->
 <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">
@@ -54,7 +57,8 @@
 {{- end -}}
 
 <!-- Styles -->
-<link href="{{ print "dist/" .Site.Data.even.assets.even.css | relURL }}" rel="stylesheet">
+{{ $style := resources.Get "sass/main.scss" | toCSS | minify | fingerprint }}
+<link href="{{ $style.RelPermalink }}" rel="stylesheet">
 {{ if .Site.Params.publicCDN.enable -}}
   {{ if .Site.Params.fancybox }}{{ .Site.Params.publicCDN.fancyboxCSS | safeHTML }}{{ end }}
 {{- else -}}

@@ -1,7 +1,7 @@
 {{- define "title" }}{{ .Title }} · {{ .Site.Title }}{{ end -}}
 
 {{- define "content" }}
-{{- $paginator := .Paginate .Data.Pages.ByDate.Reverse .Site.Params.archivePaginate -}}
+{{- $paginator := .Paginate .Data.Pages .Site.Params.archivePaginate -}}
 <section id="archive" class="archive">
   {{ if not $paginator.HasPrev -}}
     {{ if eq .Data.Plural "tags" -}}
@@ -21,7 +21,7 @@
         {{ .Date.Format (.Site.Params.dateFormatToUse | default "2006-01-02") }}
       </span>
       <span class="archive-post-title">
-        <a href="{{ .Permalink }}" class="archive-post-link">
+        <a href="{{ .RelPermalink }}" class="archive-post-link">
           {{ .Title }}
         </a>
       </span>
